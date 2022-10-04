@@ -17,16 +17,18 @@ Configuration Sample_xWebAppPool
     Import-DscResource -ModuleName xWebAdministration
 
     Node $NodeName
-    {
-        xWebAppPool AppPool
-        {
-            Name                           = $AppPoolName
-            Ensure                         = 'Present'
-            State                          = $state
-            autoStart                      = $true
-            idleTimeout                    = (New-TimeSpan -Minutes 20).ToString()  
-            restartPrivateMemoryLimit      = 700000
-            logEventOnRecycle              = 'Time,Memory,PrivateMemory'
-        }
-    }
-}
+    {   
+        foreach($AppPool in $AppPoolName) {
+            xWebAppPool AppPool
+            {
+                Name                           = $AppPoolName
+                Ensure                         = 'Present'
+                State                          = $state
+                autoStart                      = $true
+                idleTimeout                    = (New-TimeSpan -Minutes 20).ToString()  
+                restartPrivateMemoryLimit      = 700000
+                logEventOnRecycle              = 'Time,Memory,PrivateMemory'
+            } #xWebAppPool
+        } #foreach   
+    } #node
+} #Configuration Sample_xWebAppPool
