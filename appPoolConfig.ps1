@@ -19,7 +19,7 @@ Configuration Sample_xWebAppPool
     Node $NodeName
     {   
         foreach($AppPool in $AppPoolName) {
-            xWebAppPool AppPool
+            xWebAppPool $AppPool
             {
                 Name                           = $AppPoolName
                 Ensure                         = 'Present'
