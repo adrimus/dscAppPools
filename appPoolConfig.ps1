@@ -2,7 +2,16 @@ Configuration Sample_xWebAppPool
 {
     param
     (
-        [String[]]$NodeName = 'localhost'
+        [parameter(Mandatory)]
+        [String[]]
+        $AppPoolName,
+
+        [ValidateSet("Started", "Stopped")]
+        [string]
+        $state="Started",
+
+        [String[]]
+        $NodeName = 'localhost'
     )
 
     Import-DscResource -ModuleName xWebAdministration
@@ -11,9 +20,9 @@ Configuration Sample_xWebAppPool
     {
         xWebAppPool AppPool
         {
-            Name                           = 'DummyAppPool'
+            Name                           = $AppPoolName
             Ensure                         = 'Present'
-            State                          = 'Started'
+            State                          = $state
             autoStart                      = $true
             idleTimeout                    = (New-TimeSpan -Minutes 20).ToString()  
             restartPrivateMemoryLimit      = 700000
