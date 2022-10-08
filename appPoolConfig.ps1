@@ -21,7 +21,7 @@ Configuration Sample_xWebAppPool
         foreach($AppPool in $AppPoolName) {
             xWebAppPool $AppPool
             {
-                Name                           = $AppPoolName
+                Name                           = $AppPool
                 Ensure                         = 'Present'
                 State                          = $state
                 autoStart                      = $true
